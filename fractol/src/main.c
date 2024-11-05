@@ -23,6 +23,9 @@ int	main(int argc, char *argv[])
 	t_fractal	fractal;
 
 	fractal_init(&fractal, argv[1]);
+	iterate_img(&fractal);
+	mlx_put_image_to_window(fractal.mlx_connection, fractal.mlx_window,
+				fractal.img.context, 0, 0);
 	mlx_loop(fractal.mlx_connection);
 	return (0);
 }
@@ -40,26 +43,25 @@ void	fractal_init(t_fractal *fractal, t_fractal_type type)
 		free(fractal->mlx_connection);
 		malloc_error();
 	}
-	fractal->img.img_ptr = mlx_new_image(fractal->mlx_connection, WIDTH,
+	fractal->img.context = mlx_new_image(fractal->mlx_connection, WIDTH,
 			HEIGHT);
-	if (NULL == fractal->img.img_ptr)
+	if (NULL == fractal->img.context)
 	{
 		mlx_destroy_window(fractal->mlx_connection, fractal->mlx_window);
 		mlx_destroy_display(fractal->mlx_connection);
 		free(fractal->mlx_connection);
 		malloc_error();
 	}
-	fractal->img.pixels = mlx_get_data_addr(fractal->img.img_ptr,
+	fractal->img.pixels = mlx_get_data_addr(fractal->img.context,
 			&fractal->img.bpp, &fractal->img.line_len, &fractal->img.endian);
 	fractal->type = type;
-	data_init(fractal);
+	// data_init(fractal);
 	hook_setter(fractal);
 }
 
-static void data_init(t_fractal *fractal)
-{
+// {
 	
-}
+// }
 
 static void	malloc_error(void)
 {
