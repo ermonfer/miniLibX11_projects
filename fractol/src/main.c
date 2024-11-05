@@ -5,28 +5,29 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmontero <fmontero@student.42madrid.com>   #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-11-01 16:48:58 by fmontero          #+#    #+#             */
-/*   Updated: 2024-11-01 16:48:58 by fmontero         ###   ########.fr       */
+/*   Created: 2024-11-01 16:48:58 by fmontero             #+#             */
+/*   Updated: 2024-11-01 16:48:58 by fmontero         ##   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fractol.h"
 #include <stdio.h>
 
-int			main(void);
-void		fractal_init(t_fractal *fractal);
-static void	malloc_error(void);
+int				main(int argc, char *argv[]);
+static void		fractal_init(t_fractal *fractal, t_fractal_type type);
+void			fractal_ctxt(t_fractal *fractal);
+static void		malloc_error(void);
 
-int	main(void)
+int	main(int argc, char *argv[])
 {
 	t_fractal	fractal;
 
-	fractal_init(&fractal);
+	fractal_init(&fractal, argv[1]);
 	mlx_loop(fractal.mlx_connection);
 	return (0);
 }
 
-void	fractal_init(t_fractal *fractal)
+void	fractal_init(t_fractal *fractal, t_fractal_type type)
 {
 	fractal->mlx_connection = mlx_init();
 	if (NULL == fractal->mlx_connection)
@@ -50,9 +51,15 @@ void	fractal_init(t_fractal *fractal)
 	}
 	fractal->img.pixels = mlx_get_data_addr(fractal->img.img_ptr,
 			&fractal->img.bpp, &fractal->img.line_len, &fractal->img.endian);
+	fractal->type = type;
+	data_init(fractal);
 	hook_setter(fractal);
 }
 
+static void data_init(t_fractal *fractal)
+{
+	
+}
 
 static void	malloc_error(void)
 {
