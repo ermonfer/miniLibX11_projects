@@ -23,12 +23,13 @@
 # include <math.h>
 # include <errno.h>
 # include "../mlx_linux/mlx.h"
+# include "../lib/libft/include/libft.h"
 
 # define WIDTH 800
 # define HEIGHT 800
 # define ERROR_MESSAGE "mensaje de error generico"
 
-typedef struct two
+typedef struct s_complex
 {
 	double	re;
 	double	im;
@@ -36,11 +37,11 @@ typedef struct two
 
 typedef struct s_img
 {
-	void			*context;
+	void	*context;
 	char	*pixels;
-	int	bpp;
-	int	endian;
-	int	line_len;
+	int		bpp;
+	int		endian;
+	int		line_len;
 }	t_img;
 
 typedef enum e_fractal_type
@@ -49,28 +50,31 @@ typedef enum e_fractal_type
 	julia
 }	t_fractal_type;
 
-typedef struct s_context
-{
-}	t_context;
-
-typedef struct s_fractal
+typedef struct s_fractal_data
 {
 	t_fractal_type	type;
-	void			*mlx_connection;
-	void			*mlx_window;
-	t_img			img;
-	// t_data			data;
-}	t_fractal;
-
-// {
 // 	double		escape;
-// 	t_complex	vertex;
-// 	double		x_len;
-// 	double		y_len;
+	t_complex	vertex;
+	double		x_len;
+	double		y_len;
 // 	//double	zoom; ???
 // 	t_complex	z;
 // 	t_complex	c;
-// }	t_data;
+}	t_fractal_data;
+
+typedef struct s_mlx_interface
+{
+	void			*mlx_connection;
+	void			*mlx_window;
+	t_img			img;
+}	t_mlx_interface;
+
+typedef struct s_fractal
+{
+	t_mlx_interface	mlx_interface;
+	t_fractal_data	fractal_data;
+}	t_fractal;
+
 
 typedef struct s_render_iterators
 {
@@ -81,7 +85,6 @@ typedef struct s_render_iterators
 	int			pixel_y;
 }	t_render_iterators;
 
-void	fractal_init(t_fractal *fractal, t_fractal_type type);
 void	hook_setter(t_fractal *fractal);
 void	iterate_img(t_fractal *fractal);
 #endif

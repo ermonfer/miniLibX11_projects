@@ -12,7 +12,8 @@
 
 #include "../include/fractol.h"
 
-void	iterate_img(t_fractal *fractal);
+static int	get_color(t_fractal *fractal);
+void		iterate_img(t_fractal *fractal);
 
 // NO haría falta. En principoio la iteraciónde imagenes sería más eficiente.
 // {
@@ -25,12 +26,12 @@ void	iterate_img(t_fractal *fractal);
 void	iterate_img(t_fractal *fractal)
 {
 	t_render_iterators	iters;
-	int					bytes_per_pixel = fractal->img.bpp/8;
+	int					bytes_per_pixel = fractal->mlx_interface.img.bpp / 8;
 
-	iters.complex_iter = fractal->data.vertex;
-	iters.complex_step.re = fractal->data.x_len / (WIDTH - 1);
-	iters.complex_step.im = fractal->data.y_len / (HEIGHT - 1);
-	iters.byte_iter = fractal->img.pixels;
+	iters.complex_iter = fractal->fractal_data.vertex;
+	iters.complex_step.re = fractal->fractal_data.x_len / (WIDTH - 1);
+	iters.complex_step.im = fractal->fractal_data.y_len / (HEIGHT - 1);
+	iters.byte_iter = fractal->mlx_interface.img.pixels;
 	iters.pixel_y = 0;
 	while (iters.pixel_y <= HEIGHT)
 	{
@@ -42,11 +43,13 @@ void	iterate_img(t_fractal *fractal)
 			iters.byte_iter += bytes_per_pixel;		
 		}
 	iters.pixel_y++;
-	iters.byte_iter += fractal->img.line_len - (WIDTH * bytes_per_pixel);
+	iters.byte_iter += fractal->mlx_interface.img.line_len
+			- (WIDTH * bytes_per_pixel);
 	}
 }
 
-int	get_color(t_fractal *fractal)
+static int	get_color(t_fractal *fractal)
 {
+	(void)fractal;
 	return (0xFFFF0000);
 }
