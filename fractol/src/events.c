@@ -30,8 +30,6 @@ int	close_handler(t_mlx_interface *interface)
 			interface->img.context);
 	mlx_destroy_window(interface->mlx_connection,
 			interface->mlx_window);
-	mlx_destroy_display(interface->mlx_connection);
-	free(interface->mlx_connection);
 	mlx_loop_end(interface->mlx_connection);
 	return (0);
 }

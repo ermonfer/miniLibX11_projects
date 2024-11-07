@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../include/fractol.h"
+#include <stdio.h>
 
 int				main(int argc, char *argv[]);
 static void		fractal_init(t_fractal *fractal);
@@ -30,6 +31,9 @@ int	main(int argc, char *argv[])
 			fractal.mlx_interface.mlx_window,
 			fractal.mlx_interface.img.context, 0, 0);
 	mlx_loop(fractal.mlx_interface.mlx_connection);
+	mlx_destroy_display(fractal.mlx_interface.mlx_connection);
+	free(fractal.mlx_interface.mlx_connection);
+	printf ("control después de mlx :)");
 	return (EXIT_SUCCESS);
 }
 
