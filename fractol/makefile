@@ -3,8 +3,8 @@ MLX_NAME := ../mlx_linux/mlx
 
 #Compilador y Flags
 CC	:= gcc
-CFLAGS	:= -Wall -Werror -Wextra -O3 -fPIE 
-LDFLAGS := -pie
+CFLAGS	:= -Wall -Werror -Wextra -O3#-fPIE 
+LDFLAGS :=#-pie
 HEADERS	:= -I/usr/local/include -I../mlx_linux
 
 #Archivos fuente y directorios

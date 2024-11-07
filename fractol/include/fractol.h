@@ -6,7 +6,7 @@
 /*   By: fmontero <fmontero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 14:55:26 by fmontero          #+#    #+#             */
-/*   Updated: 2024/11/05 17:28:29 by fmontero         ###   ########.fr       */
+/*   Updated: 2024/11/07 22:42:14 by fmontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef enum e_fractal_type
 
 typedef struct s_fractal_data
 {
+	int color;
 	t_fractal_type	type;
 // 	double		escape;
 	t_complex	vertex;

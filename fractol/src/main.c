@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmontero <fmontero@student.42madrid.com>   #+#  +:+       +#+        */
+/*   By: fmontero <fmontero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-11-06 14:22:43 by fmontero          #+#    #+#             */
-/*   Updated: 2024-11-06 14:22:43 by fmontero         ###   ########.fr       */
+/*   Created: 2024/11/06 14:22:43 by fmontero          #+#    #+#             */
+/*   Updated: 2024/11/07 22:43:08 by fmontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fractol.h"
-#include <stdio.h>
 
 int				main(int argc, char *argv[]);
 static void		fractal_init(t_fractal *fractal);
@@ -24,6 +23,7 @@ int	main(int argc, char *argv[])
 {
 	t_fractal	fractal;
 
+	fractal.fractal_data.color = 0xFFFF0000;
 	check_args(argc, argv, &fractal);
 	fractal_init(&fractal);
 	iterate_img(&fractal);
@@ -33,7 +33,6 @@ int	main(int argc, char *argv[])
 	mlx_loop(fractal.mlx_interface.mlx_connection);
 	mlx_destroy_display(fractal.mlx_interface.mlx_connection);
 	free(fractal.mlx_interface.mlx_connection);
-	printf ("control después de mlx :)");
 	return (EXIT_SUCCESS);
 }
 

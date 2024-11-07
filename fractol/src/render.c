@@ -6,13 +6,13 @@
 /*   By: fmontero <fmontero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 07:25:33 by fmontero          #+#    #+#             */
-/*   Updated: 2024/11/05 17:21:36 by fmontero         ###   ########.fr       */
+/*   Updated: 2024/11/07 22:46:49 by fmontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fractol.h"
 
-static int	get_color(t_fractal *fractal);
+// static int	get_color(t_fractal *fractal);
 void		iterate_img(t_fractal *fractal);
 
 // NO haría falta. En principoio la iteraciónde imagenes sería más eficiente.
@@ -38,7 +38,7 @@ void	iterate_img(t_fractal *fractal)
 		iters.pixel_x = 0;
 		while (iters.pixel_x < WIDTH)
 		{
-			*(unsigned int *)(iters.byte_iter) = get_color(fractal);
+			*(unsigned int *)(iters.byte_iter) = fractal->fractal_data.color;
 			iters.pixel_x++;
 			iters.byte_iter += bytes_per_pixel;		
 		}
@@ -48,8 +48,8 @@ void	iterate_img(t_fractal *fractal)
 	}
 }
 
-static int	get_color(t_fractal *fractal)
-{
-	(void)fractal;
-	return (0xFFFF0000);
-}
+// static int	get_color(t_fractal *fractal)
+// {
+// 	(void)fractal;
+// 	return (0xFFFF0000);
+// }

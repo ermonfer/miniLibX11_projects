@@ -6,7 +6,7 @@
 /*   By: fmontero <fmontero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 17:13:52 by fmontero          #+#    #+#             */
-/*   Updated: 2024/11/05 15:13:15 by fmontero         ###   ########.fr       */
+/*   Updated: 2024/11/07 22:57:05 by fmontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,16 @@ int	key_handler(int keysym, t_fractal *fractal)
 {
 	if (keysym == XK_Escape)
 		close_handler(&fractal->mlx_interface);
+	if (keysym == XK_space)
+	{
+		if (fractal->fractal_data.color == (int)0xFFFF0000)
+			fractal->fractal_data.color = 0xFF00FF00;
+		else
+			fractal->fractal_data.color = 0xFFFF0000;
+		iterate_img(fractal);
+		mlx_put_image_to_window(fractal->mlx_interface.mlx_connection,
+				fractal->mlx_interface.mlx_window,
+				fractal->mlx_interface.img.context, 0, 0);
+	}
 	return (0);
 }
