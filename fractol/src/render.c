@@ -12,8 +12,9 @@
 
 #include "../include/fractol.h"
 
-// static int	get_color(t_fractal *fractal);
-void		iterate_img(t_fractal *fractal);
+void			iterate_img(t_fractal *fractal);
+unsigned int	mandeljulia(t_complex complex, t_fractal *fractal);
+unsigned int	get_color(t_complex z, t_fractal *fractal);
 
 // NO haría falta. En principoio la iteraciónde imagenes sería más eficiente.
 // {
@@ -29,16 +30,17 @@ void	iterate_img(t_fractal *fractal)
 	int					bytes_per_pixel = fractal->mlx_interface.img.bpp / 8;
 
 	iters.complex_iter = fractal->fractal_data.vertex;
-	iters.complex_step.re = fractal->fractal_data.x_len / (WIDTH - 1);
-	iters.complex_step.im = fractal->fractal_data.y_len / (HEIGHT - 1);
+	iters.complex_step.re = fractal->fractal_data.complex_width / (WIDTH - 1);
+	iters.complex_step.im = fractal->fractal_data.complex_height / (HEIGHT - 1);
 	iters.byte_iter = fractal->mlx_interface.img.pixels;
 	iters.pixel_y = 0;
 	while (iters.pixel_y <= HEIGHT)
 	{
 		iters.pixel_x = 0;
-		while (iters.pixel_x < WIDTH)
+		while (iters.pixel_x <= WIDTH)
 		{
-			*(unsigned int *)(iters.byte_iter) = fractal->fractal_data.color;
+			*(unsigned int *)(iters.byte_iter) =
+					get_color(iters.complex_iter, fractal);
 			iters.pixel_x++;
 			iters.byte_iter += bytes_per_pixel;		
 		}
@@ -48,8 +50,35 @@ void	iterate_img(t_fractal *fractal)
 	}
 }
 
-// static int	get_color(t_fractal *fractal)
-// {
-// 	(void)fractal;
-// 	return (0xFFFF0000);
-// }
+unsigned int	mandeljulia(t_complex complex, t_fractal *fractal)
+{
+	unsigned int	i;
+	t_complex 		z;
+	t_complex 		c;
+
+	 if (fractal->fractal_data.type == mandel)
+	 {
+		z = (t_complex){0, 0};
+		c = complex;
+	 }
+	 if (fractal->fractal_data.type == julia)
+	 {
+		z = complex;
+		c = fractal->fractal_data.julia_cte;
+	 }
+	 while (i <= fractal->fractal_data.escape_limit + 1)
+	 {
+		if (complex_module(z) > fractal->fractal_data.escape_limit)
+			break;
+		z = complex_sum(complex_square(z), c);
+		i++;
+	 }
+	 return (i);
+}
+
+unsigned int	get_color(t_complex z, t_fractal *fractal)
+{
+	return ((unsigned int)lerp((double)mandeljulia(z, fractal),
+			(double[]){BLACK, WHITE},
+			(double[]){0, fractal->fractal_data.escape_limit}));
+}

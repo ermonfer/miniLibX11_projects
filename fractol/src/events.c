@@ -40,8 +40,8 @@ int	key_handler(int keysym, t_fractal *fractal)
 		close_handler(&fractal->mlx_interface);
 	if (keysym == XK_space)
 	{
-		if (fractal->fractal_data.color == (int)0xFFFF0000)
-			fractal->fractal_data.color = 0xFF00FF00;
+		if (fractal->fractal_data.color == 0xFFFF0000)
+			fractal->fractal_data.color = 0xFFFFFF00;
 		else
 			fractal->fractal_data.color = 0xFFFF0000;
 		iterate_img(fractal);

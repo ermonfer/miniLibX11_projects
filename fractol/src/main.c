@@ -38,11 +38,24 @@ int	main(int argc, char *argv[])
 
 static void	check_args(int argc, char *argv[], t_fractal *fractal)
 {
-	
+	int format_error1;
+	int format_error2;
+
 	if (argc == 2 && ft_strncmp(argv[1], "mandelbrot", 11) == 0)
 	{
 		fractal->fractal_data.type = mandel;
 		return ;
+	}
+	if (argc == 4 && ft_strncmp(argv[1], "julia", 6) == 0)
+	{
+		fractal->fractal_data.type = julia;
+		fractal->fractal_data.julia_cte =
+				(t_complex){ft_atod_signal(argv[2], &format_error1),
+				ft_atod_signal(argv[3], &format_error2)};
+		if (format_error1 || format_error2)
+			ft_putstr_fd("Error en los parámetros de julia\n");
+		else
+			return ;
 	}
 	exit(EXIT_FAILURE);
 }
@@ -83,8 +96,8 @@ void	mlx_interface_init(t_mlx_interface *interface)
 static void	fractal_data_init(t_fractal_data *data)
 {
 	data->vertex = (t_complex){0, 0};
-	data->x_len = 5;
-	data->y_len = 5;
+	data->complex_width = 5;
+	data->complex_height = 5;
 }
 
 static void	malloc_error(void)

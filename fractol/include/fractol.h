@@ -24,10 +24,24 @@
 # include <errno.h>
 # include "../mlx_linux/mlx.h"
 # include "../lib/libft/include/libft.h"
+# include "../lib/libft/include/extra.h"
 
 # define WIDTH 800
 # define HEIGHT 800
 # define ERROR_MESSAGE "mensaje de error generico"
+
+# define BLACK       		0x000000FF
+# define WHITE       		0xFFFFFFFF
+# define NEON_ORANGE     	0xFF6600FF
+# define PSYCHEDELIC_PURPLE	0x660066FF
+# define AQUA_DREAM			0x33CCCCFF
+# define HOT_PINK        	0xE55982FF 
+# define CYAN_ELECTRIC		0xFF2CFFFF
+# define MCDONALDS			0xFFC72CFF
+# define SUPER_YELLOW		0xFCBE11FF
+# define PNKY_PASTEL		0xFFC4D6FF
+# define CUTE_GREEN			0xC1E378FF
+# define BRAT_GREEN			0x89CC04FF
 
 typedef struct s_complex
 {
@@ -52,15 +66,14 @@ typedef enum e_fractal_type
 
 typedef struct s_fractal_data
 {
-	int color;
+	unsigned int	color;
 	t_fractal_type	type;
-// 	double		escape;
-	t_complex	vertex;
-	double		x_len;
-	double		y_len;
+	double			escape_limit;
+	t_complex		vertex;
+	double			complex_width;
+	double			complex_height;
+	t_complex		julia_cte;
 // 	//double	zoom; ???
-// 	t_complex	z;
-// 	t_complex	c;
 }	t_fractal_data;
 
 typedef struct s_mlx_interface
@@ -86,6 +99,10 @@ typedef struct s_render_iterators
 	int			pixel_y;
 }	t_render_iterators;
 
-void	hook_setter(t_fractal *fractal);
-void	iterate_img(t_fractal *fractal);
+void		hook_setter(t_fractal *fractal);
+void		iterate_img(t_fractal *fractal);
+t_complex	complex_sum(t_complex a, t_complex b);
+t_complex	complex_square(t_complex z);
+double		complex_module(t_complex z);
+double		lerp(double target, double new[2], double old[2]);
 #endif

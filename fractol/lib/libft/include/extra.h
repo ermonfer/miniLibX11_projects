@@ -13,6 +13,8 @@
 #ifndef EXTRA_H
 # define EXTRA_H
 # include <limits.h>
+# include <stdbool.h>
+# include "./libft.h"
 
 void	ft_insertionsort(int arr[], int n);
 void	ft_quicksort(int array[], int low, int high);
@@ -22,4 +24,6 @@ int		ft_mod(int a, int b);
 int		ft_atoi_signal(const char *str, int *out_of_range);
 void	ft_free_split(char **split);
 void	*ft_free_return(void **ptrs, int n_ptrs, void *ret);
+double	ft_atod_signal(char str[], int *format_error);
+
 #endif

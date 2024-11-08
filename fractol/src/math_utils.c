@@ -12,6 +12,11 @@
 
 #include "../include/fractol.h"
 
+t_complex	complex_sum(t_complex a, t_complex b);
+t_complex	complex_square(t_complex z);
+double		complex_module(t_complex z);
+double		lerp(double target, double new[2], double old[2]);
+
 t_complex	complex_sum(t_complex a, t_complex b)
 {
 	return ((t_complex){a.re + b.re, a.im + b.im});
@@ -25,4 +30,9 @@ t_complex	complex_square(t_complex z)
 double lerp(double target, double new[2], double old[2])
 {
     return (new[1] - new[0]) * (target - old[0]) / (old[1] - old[0]) + new[0];
+}
+
+double	complex_module(t_complex z)
+{
+	return ((double)(z.re * z.re + z.im * z.im));
 }
