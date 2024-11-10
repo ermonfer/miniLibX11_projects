@@ -6,7 +6,7 @@
 /*   By: fmontero <fmontero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 07:25:33 by fmontero          #+#    #+#             */
-/*   Updated: 2024/11/10 18:28:59 by fmontero         ###   ########.fr       */
+/*   Updated: 2024/11/10 23:00:48 by fmontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void			iterate_img(t_fractal *fractal);
 static unsigned int	mandeljulia(t_complex complex, t_fractal *fractal);
-// static unsigned int	get_color(t_complex z, t_fractal *fractal);
-static unsigned int	gray_scale(t_complex z, t_fractal *fractal);
+static unsigned int	get_color(t_complex z, t_fractal *fractal);
+// static unsigned int	gray_scale(t_complex z, t_fractal *fractal);
 
 // NO haría falta. En principoio la iteraciónde imagenes sería más eficiente.
 // {
@@ -41,7 +41,7 @@ void	iterate_img(t_fractal *fractal)
 		while (iters.pixel_x <= WIDTH)
 		{
 			*(unsigned int *)(iters.byte_iter) =
-					gray_scale(iters.complex_iter, fractal);
+					get_color(iters.complex_iter, fractal);
 			iters.pixel_x++;
 			iters.complex_iter.re += iters.complex_step.re;
 			iters.byte_iter += bytes_per_pixel;		
@@ -81,20 +81,20 @@ unsigned int	mandeljulia(t_complex complex, t_fractal *fractal)
 	 return (i);
 }
 
-// static unsigned int	get_color(t_complex z, t_fractal *fractal)
-// {
-// 	return ((unsigned int)lerp((double)mandeljulia(z, fractal),
-// 			(double[]){0, fractal->fractal_data.escape_limit},
-// 			(double[]){WHITE, BLACK}));
-// }
-
-static unsigned int	gray_scale(t_complex z, t_fractal *fractal)
+static unsigned int	get_color(t_complex z, t_fractal *fractal)
 {
-	unsigned int	intensity;
-
-	intensity = (unsigned int)lerp((double)mandeljulia(z, fractal),
-	(double[]){0, fractal->fractal_data.escape_limit},
-	(double[]){0, 255});
-	intensity = 255 - intensity;
-	return ((0xFF << 24) | (intensity << 16) | (intensity << 8) | intensity);
+	return ((unsigned int)lerp((double)mandeljulia(z, fractal),
+			(double[]){0, fractal->fractal_data.escape_limit},
+			(double[]){WHITE, BLACK}));
 }
+
+// static unsigned int	gray_scale(t_complex z, t_fractal *fractal)
+// {
+// 	unsigned int	intensity;
+
+// 	intensity = (unsigned int)lerp((double)mandeljulia(z, fractal),
+// 	(double[]){0, fractal->fractal_data.escape_limit},
+// 	(double[]){0, 255});
+// 	intensity = 255 - intensity;
+// 	return ((0xFF << 24) | (intensity << 16) | (intensity << 8) | intensity);
+// }

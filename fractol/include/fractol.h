@@ -6,7 +6,7 @@
 /*   By: fmontero <fmontero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 14:55:26 by fmontero          #+#    #+#             */
-/*   Updated: 2024/11/10 18:29:28 by fmontero         ###   ########.fr       */
+/*   Updated: 2024/11/10 22:58:05 by fmontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 # include "../lib/libft/include/libft.h"
 # include "../lib/libft/include/extra.h"
 
-# define WIDTH 600
-# define HEIGHT 600
+# define WIDTH 750
+# define HEIGHT 750
 # define ESCAPE_VALUE 200
 # define ERROR_MESSAGE "mensaje de error generico"
 
