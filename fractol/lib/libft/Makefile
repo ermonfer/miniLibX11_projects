@@ -7,7 +7,7 @@ CFLAGS := -Werror -Wextra -Wall -I$(INC_DIR)
 AR := ar -rcs
 
 SRC_EXTRA := ft_insertionsort.c ft_quicksort.c ft_max_min.c ft_abs.c ft_mod.c ft_atoi_signal.c\
-	ft_free_split.c ft_free_return.c
+	ft_free_split.c ft_free_return.c ft_atod_signal.c
 DIR_EXTRA := extra/
 SRC_EXTRA := $(addprefix $(DIR_EXTRA), $(SRC_EXTRA))
 OBJ_EXTRA := $(SRC_EXTRA:.c=.o)

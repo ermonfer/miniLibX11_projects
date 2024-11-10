@@ -6,15 +6,16 @@
 /*   By: fmontero <fmontero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 07:25:33 by fmontero          #+#    #+#             */
-/*   Updated: 2024/11/07 22:46:49 by fmontero         ###   ########.fr       */
+/*   Updated: 2024/11/10 18:28:59 by fmontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fractol.h"
 
 void			iterate_img(t_fractal *fractal);
-unsigned int	mandeljulia(t_complex complex, t_fractal *fractal);
-unsigned int	get_color(t_complex z, t_fractal *fractal);
+static unsigned int	mandeljulia(t_complex complex, t_fractal *fractal);
+// static unsigned int	get_color(t_complex z, t_fractal *fractal);
+static unsigned int	gray_scale(t_complex z, t_fractal *fractal);
 
 // NO haría falta. En principoio la iteraciónde imagenes sería más eficiente.
 // {
@@ -40,13 +41,16 @@ void	iterate_img(t_fractal *fractal)
 		while (iters.pixel_x <= WIDTH)
 		{
 			*(unsigned int *)(iters.byte_iter) =
-					get_color(iters.complex_iter, fractal);
+					gray_scale(iters.complex_iter, fractal);
 			iters.pixel_x++;
+			iters.complex_iter.re += iters.complex_step.re;
 			iters.byte_iter += bytes_per_pixel;		
 		}
 	iters.pixel_y++;
 	iters.byte_iter += fractal->mlx_interface.img.line_len
-			- (WIDTH * bytes_per_pixel);
+			- ((WIDTH + 1) * bytes_per_pixel);
+	iters.complex_iter.re -= iters.complex_step.re * (WIDTH + 1);
+	iters.complex_iter.im += iters.complex_step.im;
 	}
 }
 
@@ -66,9 +70,10 @@ unsigned int	mandeljulia(t_complex complex, t_fractal *fractal)
 		z = complex;
 		c = fractal->fractal_data.julia_cte;
 	 }
-	 while (i <= fractal->fractal_data.escape_limit + 1)
+	 i = 0;
+	 while (i < fractal->fractal_data.escape_limit)
 	 {
-		if (complex_module(z) > fractal->fractal_data.escape_limit)
+		if (complex_module(z) > 4)
 			break;
 		z = complex_sum(complex_square(z), c);
 		i++;
@@ -76,9 +81,20 @@ unsigned int	mandeljulia(t_complex complex, t_fractal *fractal)
 	 return (i);
 }
 
-unsigned int	get_color(t_complex z, t_fractal *fractal)
+// static unsigned int	get_color(t_complex z, t_fractal *fractal)
+// {
+// 	return ((unsigned int)lerp((double)mandeljulia(z, fractal),
+// 			(double[]){0, fractal->fractal_data.escape_limit},
+// 			(double[]){WHITE, BLACK}));
+// }
+
+static unsigned int	gray_scale(t_complex z, t_fractal *fractal)
 {
-	return ((unsigned int)lerp((double)mandeljulia(z, fractal),
-			(double[]){BLACK, WHITE},
-			(double[]){0, fractal->fractal_data.escape_limit}));
+	unsigned int	intensity;
+
+	intensity = (unsigned int)lerp((double)mandeljulia(z, fractal),
+	(double[]){0, fractal->fractal_data.escape_limit},
+	(double[]){0, 255});
+	intensity = 255 - intensity;
+	return ((0xFF << 24) | (intensity << 16) | (intensity << 8) | intensity);
 }

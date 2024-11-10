@@ -46,6 +46,6 @@ fclean: clean
 	make -C ../mlx_linux clean
 	rm -f $(OUT)
 
-re: fclean all
+re: fclean $(OUT)
 
 .PHONY: all clean fclean re

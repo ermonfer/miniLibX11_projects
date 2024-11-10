@@ -6,7 +6,7 @@
 /*   By: fmontero <fmontero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 14:22:43 by fmontero          #+#    #+#             */
-/*   Updated: 2024/11/07 22:43:08 by fmontero         ###   ########.fr       */
+/*   Updated: 2024/11/10 17:59:23 by fmontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	check_args(int argc, char *argv[], t_fractal *fractal)
 				(t_complex){ft_atod_signal(argv[2], &format_error1),
 				ft_atod_signal(argv[3], &format_error2)};
 		if (format_error1 || format_error2)
-			ft_putstr_fd("Error en los parámetros de julia\n");
+			ft_putstr_fd("Error en los parámetros de julia\n", 1);
 		else
 			return ;
 	}
@@ -95,9 +95,10 @@ void	mlx_interface_init(t_mlx_interface *interface)
 
 static void	fractal_data_init(t_fractal_data *data)
 {
-	data->vertex = (t_complex){0, 0};
-	data->complex_width = 5;
-	data->complex_height = 5;
+	data->vertex = (t_complex){-2.15, -1.5};
+	data->complex_width = 3;
+	data->complex_height = 3;
+	data->escape_limit = ESCAPE_VALUE;
 }
 
 static void	malloc_error(void)
