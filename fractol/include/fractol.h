@@ -26,9 +26,9 @@
 # include "../lib/libft/include/libft.h"
 # include "../lib/libft/include/extra.h"
 
-# define WIDTH 750
-# define HEIGHT 750
-# define ESCAPE_VALUE 200
+# define WIDTH 900
+# define HEIGHT 900
+# define ESCAPE_VALUE 100
 # define ERROR_MESSAGE "mensaje de error generico"
 
 # define BLACK       		0xFF000000
@@ -43,6 +43,8 @@
 # define PNKY_PASTEL		0xFFFFC4D6
 # define CUTE_GREEN			0xFFC1E378
 # define BRAT_GREEN			0xFF8ACE00
+
+typedef unsigned int	t_uint;
 
 typedef struct s_complex
 {
@@ -65,16 +67,23 @@ typedef enum e_fractal_type
 	julia
 }	t_fractal_type;
 
+typedef enum e_movement
+{
+	move_right,
+	move_left,
+	move_up,
+	move_down
+}	t_movement;
+
 typedef struct s_fractal_data
 {
-	unsigned int	color;
 	t_fractal_type	type;
 	double			escape_limit;
 	t_complex		vertex;
 	double			complex_width;
 	double			complex_height;
 	t_complex		julia_cte;
-// 	//double	zoom; ???
+// 	double	zoom; ???
 }	t_fractal_data;
 
 typedef struct s_mlx_interface
@@ -87,9 +96,8 @@ typedef struct s_mlx_interface
 typedef struct s_fractal
 {
 	t_mlx_interface	mlx_interface;
-	t_fractal_data	fractal_data;
+	t_fractal_data	data;
 }	t_fractal;
-
 
 typedef struct s_render_iterators
 {

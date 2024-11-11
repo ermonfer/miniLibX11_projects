@@ -27,9 +27,10 @@ t_complex	complex_square(t_complex z)
 	return ((t_complex){(z.re * z.re) - (z.im * z.im), 2 * z.re * z.im});
 }
 
-double lerp(double target, double old[2], double new[2])
+double	lerp(double target, double old[2], double new[2])
 {
-    return (new[1] - new[0]) * (target - old[0]) / (old[1] - old[0]) + new[0];
+	return ((new[1] - new[0]) * ((target - old[0]) / (old[1] - old[0]))
+		+ new[0]);
 }
 
 double	complex_module(t_complex z)

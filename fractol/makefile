@@ -3,7 +3,7 @@ MLX_NAME := ../mlx_linux/mlx
 
 #Compilador y Flags
 CC	:= gcc
-CFLAGS	:= -Wall -Werror -Wextra -O3#-fPIE 
+CFLAGS	:= -Wall -Werror -Wextra -Ofast -march=native -funroll-loops#-fPIE 
 LDFLAGS :=#-pie
 HEADERS	:= -I/usr/local/include -I../mlx_linux
 

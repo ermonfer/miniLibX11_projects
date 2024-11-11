@@ -23,13 +23,12 @@ int	main(int argc, char *argv[])
 {
 	t_fractal	fractal;
 
-	fractal.fractal_data.color = 0xFFFF0000;
 	check_args(argc, argv, &fractal);
 	fractal_init(&fractal);
 	iterate_img(&fractal);
 	mlx_put_image_to_window(fractal.mlx_interface.mlx_connection,
-			fractal.mlx_interface.mlx_window,
-			fractal.mlx_interface.img.context, 0, 0);
+		fractal.mlx_interface.mlx_window,
+		fractal.mlx_interface.img.context, 0, 0);
 	mlx_loop(fractal.mlx_interface.mlx_connection);
 	mlx_destroy_display(fractal.mlx_interface.mlx_connection);
 	free(fractal.mlx_interface.mlx_connection);
@@ -38,20 +37,20 @@ int	main(int argc, char *argv[])
 
 static void	check_args(int argc, char *argv[], t_fractal *fractal)
 {
-	int format_error1;
-	int format_error2;
+	int	format_error1;
+	int	format_error2;
 
 	if (argc == 2 && ft_strncmp(argv[1], "mandelbrot", 11) == 0)
 	{
-		fractal->fractal_data.type = mandel;
+		fractal->data.type = mandel;
 		return ;
 	}
 	if (argc == 4 && ft_strncmp(argv[1], "julia", 6) == 0)
 	{
-		fractal->fractal_data.type = julia;
-		fractal->fractal_data.julia_cte =
-				(t_complex){ft_atod_signal(argv[2], &format_error1),
-				ft_atod_signal(argv[3], &format_error2)};
+		fractal->data.type = julia;
+		fractal->data.julia_cte
+			= (t_complex){ft_atod_signal(argv[2], &format_error1),
+			ft_atod_signal(argv[3], &format_error2)};
 		if (format_error1 || format_error2)
 			ft_putstr_fd("Error en los parámetros de julia\n", 1);
 		else
@@ -63,7 +62,7 @@ static void	check_args(int argc, char *argv[], t_fractal *fractal)
 void	fractal_init(t_fractal *fractal)
 {
 	mlx_interface_init(&fractal->mlx_interface);
-	fractal_data_init(&fractal->fractal_data);
+	fractal_data_init(&fractal->data);
 	hook_setter(fractal);
 }
 
@@ -90,12 +89,13 @@ void	mlx_interface_init(t_mlx_interface *interface)
 		malloc_error();
 	}
 	interface->img.pixels = mlx_get_data_addr(interface->img.context,
-			&interface->img.bpp, &interface->img.line_len, &interface->img.endian);
+			&interface->img.bpp, &interface->img.line_len,
+			&interface->img.endian);
 }
 
 static void	fractal_data_init(t_fractal_data *data)
 {
-	data->vertex = (t_complex){-2.15, -1.5};
+	data->vertex = (t_complex){-2.15, 1.5};
 	data->complex_width = 3;
 	data->complex_height = 3;
 	data->escape_limit = ESCAPE_VALUE;
