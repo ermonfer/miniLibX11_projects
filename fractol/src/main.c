@@ -96,8 +96,9 @@ void	mlx_interface_init(t_mlx_interface *interface)
 static void	fractal_data_init(t_fractal_data *data)
 {
 	data->vertex = (t_complex){-2.15, 1.5};
-	data->complex_width = 3;
-	data->complex_height = 3;
+	data->complex_width = 3.0;
+	data->complex_height = 3.0;
+	data->zoom = ZOOM_FACTOR;
 	data->escape_limit = ESCAPE_VALUE;
 }
 

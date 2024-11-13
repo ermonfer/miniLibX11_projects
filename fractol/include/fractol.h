@@ -15,7 +15,7 @@
 # define FRACTOL_H
 
 # include <stdlib.h>
-# include <stdio.h>
+# include <stdbool.h>
 # include <mlx.h>
 # include <X11/keysym.h>
 # include <X11/X.h>
@@ -29,6 +29,7 @@
 # define WIDTH 900
 # define HEIGHT 900
 # define ESCAPE_VALUE 100
+# define ZOOM_FACTOR 1.05
 # define ERROR_MESSAGE "mensaje de error generico"
 
 # define BLACK       		0xFF000000
@@ -83,7 +84,7 @@ typedef struct s_fractal_data
 	double			complex_width;
 	double			complex_height;
 	t_complex		julia_cte;
-// 	double	zoom; ???
+	double			zoom;
 }	t_fractal_data;
 
 typedef struct s_mlx_interface

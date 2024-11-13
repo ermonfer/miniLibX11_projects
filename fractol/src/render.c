@@ -13,7 +13,7 @@
 #include "../include/fractol.h"
 
 void				iterate_img(t_fractal *fractal);
-// static unsigned int	mandeljulia(t_complex complex, t_fractal *fractal);
+static unsigned int	mandeljulia(t_complex complex, t_fractal *fractal);
 // static unsigned int	get_color(t_complex z, t_fractal *fractal);
 static unsigned int	gray_scale(t_complex z, t_fractal *fractal);
 
@@ -92,9 +92,9 @@ static unsigned int	gray_scale(t_complex z, t_fractal *fractal)
 {
 	unsigned int	intensity;
 
-	intensity = (unsigned int)lerp((double)mandeljulia(z, fractal),
+	intensity = (unsigned char)lerp((double)mandeljulia(z, fractal),
 	(double[]){0, fractal->data.escape_limit},
 	(double[]){0, 255});
-	intensity = 255 - intensity;
+	// intensity = 255 - intensity;
 	return ((0xFF << 24) | (intensity << 16) | (intensity << 8) | intensity);
 }

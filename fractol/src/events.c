@@ -16,11 +16,16 @@ void	hook_setter(t_fractal *fractal);
 int		close_handler(t_mlx_interface *interface);
 int		key_handler(int keysym, t_fractal *fractal);
 int		move_handler(t_fractal *fractal, t_movement movement);
+int		mouse_handler(int button, int x, int y, t_fractal * fractal);
 
 void	hook_setter(t_fractal *fractal)
 {
 	mlx_hook(fractal->mlx_interface.mlx_window, KeyPress, KeyPressMask,
 		key_handler, fractal);
+	mlx_hook(fractal->mlx_interface.mlx_window, ButtonPress, ButtonPressMask,
+		mouse_handler, fractal);
+	// mlx_hook(fractal->mlx_interface.mlx_window,
+		// MotionNotify, PointerMotionMask, cursor_pos_handler, fractal);
 	mlx_hook(fractal->mlx_interface.mlx_window, DestroyNotify,
 		StructureNotifyMask, close_handler, fractal);
 }
@@ -66,3 +71,52 @@ int	move_handler(t_fractal *fractal, t_movement movement)
 		fractal->mlx_interface.img.context, 0, 0);
 	return (0);
 }
+
+int		mouse_handler(int button, int x, int y, t_fractal *fractal)
+{
+	t_complex cursor;
+
+	if (button == Button1)
+	{
+		
+	}
+	cursor.re = lerp(x, (double []){0, WIDTH},
+	(double []){fractal->data.vertex.re, fractal->data.vertex.re
+	+ fractal->data.complex_width});
+	cursor.im = lerp(y, (double []){0, HEIGHT},
+	(double []){fractal->data.vertex.im, fractal->data.vertex.im
+	- fractal->data.complex_height});
+	if (button == Button4)
+	{
+		fractal->data.vertex.re = (fractal->data.vertex.re - cursor.re)
+			* fractal->data.zoom + cursor.re;
+		fractal->data.vertex.im = (fractal->data.vertex.im - cursor.im)
+			* fractal->data.zoom + cursor.im;
+		fractal->data.complex_width *= fractal->data.zoom;
+		fractal->data.complex_height *= fractal->data.zoom;
+	}
+	else if (button == Button5)
+	{
+		fractal->data.vertex.re = (fractal->data.vertex.re - cursor.re)
+			/ fractal->data.zoom + cursor.re;
+		fractal->data.vertex.im = (fractal->data.vertex.im - cursor.im)
+			/ fractal->data.zoom + cursor.im;
+		fractal->data.complex_width /= fractal->data.zoom;
+		fractal->data.complex_height /= fractal->data.zoom;
+	}
+	iterate_img(fractal);
+	mlx_put_image_to_window(fractal->mlx_interface.mlx_connection,
+		fractal->mlx_interface.mlx_window,
+		fractal->mlx_interface.img.context, 0, 0);
+	return (0);
+}
+
+// t_complex	get_complex(int x, int y, t_fractal *fractal)
+// {
+// 	return ((t_complex){lerp(x, (double []){0, WIDTH},
+// 		(double []){fractal->data.vertex.re, fractal->data.vertex.re
+// 		+ fractal->data.complex_width}),
+// 		lerp(y, (double []){0, HEIGHT},
+// 		(double []){fractal->data.vertex.im, fractal->data.vertex.im
+// 		- fractal->data.complex_height})});
+// }
