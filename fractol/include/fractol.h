@@ -89,7 +89,8 @@ typedef struct s_fractal_data
 	double			zoom;
 	int				last_x;
 	int				last_y;
-	bool			is_dragging;
+	unsigned char	button4_ctr;
+	unsigned char	button5_ctr;
 }	t_fractal_data;
 
 typedef struct s_mlx_interface

@@ -100,7 +100,8 @@ static void	fractal_data_init(t_fractal_data *data)
 	data->complex_height = 3.0;
 	data->zoom = ZOOM_FACTOR;
 	data->escape_limit = ESCAPE_VALUE;
-	data->is_dragging = false;
+	data->button4_ctr = 1;
+	data->button5_ctr = 1;
 }
 
 static void	malloc_error(void)

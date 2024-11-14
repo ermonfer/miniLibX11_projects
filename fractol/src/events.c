@@ -19,7 +19,6 @@ int		key_move_handler(t_fractal *fractal, t_movement movement);
 int		mouse_push_handler(int button, int x, int y, t_fractal *fractal);
 int		click_handler(int x, int y, t_fractal *fractal);
 int		mouse_release_handler(int button, int x, int y, t_fractal *fractal);
-int		mouse_move_handler(int x, int y, t_fractal *fractal);
 
 
 void	hook_setter(t_fractal *fractal)
@@ -30,8 +29,6 @@ void	hook_setter(t_fractal *fractal)
 		mouse_push_handler, fractal);
 	mlx_hook(fractal->mlx_interface.mlx_window, ButtonRelease, ButtonReleaseMask,
 		mouse_release_handler, fractal);
-	mlx_hook(fractal->mlx_interface.mlx_window, MotionNotify,
-		PointerMotionMask, mouse_move_handler, fractal);
 	mlx_hook(fractal->mlx_interface.mlx_window, DestroyNotify,
 		StructureNotifyMask, close_handler, fractal);
 }
@@ -95,6 +92,9 @@ int	mouse_push_handler(int button, int x, int y, t_fractal *fractal)
 	- fractal->data.complex_height});
 	if (button == Button4)
 	{
+		if (fractal->data.button4_ctr++ < 1)
+			return (0);
+		fractal->data.button4_ctr = 0;
 		fractal->data.vertex.re = (fractal->data.vertex.re - cursor.re)
 			* fractal->data.zoom + cursor.re;
 		fractal->data.vertex.im = (fractal->data.vertex.im - cursor.im)
@@ -104,6 +104,9 @@ int	mouse_push_handler(int button, int x, int y, t_fractal *fractal)
 	}
 	else if (button == Button5)
 	{
+		if (fractal->data.button5_ctr++ < 1)
+			return (0);
+		fractal->data.button5_ctr = 0;
 		fractal->data.vertex.re = (fractal->data.vertex.re - cursor.re)
 			/ fractal->data.zoom + cursor.re;
 		fractal->data.vertex.im = (fractal->data.vertex.im - cursor.im)
@@ -120,7 +123,6 @@ int	mouse_push_handler(int button, int x, int y, t_fractal *fractal)
 
 int click_handler(int x, int y, t_fractal *fractal)
 {
-	fractal->data.is_dragging = true;
 	fractal->data.last_x = x;
 	fractal->data.last_y = y;
     return (0);
@@ -128,27 +130,16 @@ int click_handler(int x, int y, t_fractal *fractal)
 
 int mouse_release_handler(int button, int x, int y, t_fractal *fractal)
 {
-	(void)x;
-	(void)y;
 	if (button == Button1)
-		fractal->data.is_dragging = false;
+	{
+		fractal->data.vertex.re -= (x - fractal->data.last_x) * fractal->data.complex_width / (WIDTH - 1);
+		fractal->data.vertex.im += (y - fractal->data.last_y) * fractal->data.complex_height / (HEIGHT - 1);
+		iterate_img(fractal);
+		mlx_put_image_to_window(fractal->mlx_interface.mlx_connection,
+								fractal->mlx_interface.mlx_window,
+								fractal->mlx_interface.img.context, 0, 0);
+	}
 	return (0);
-}
-
-int mouse_move_handler(int x, int y, t_fractal *fractal)
-{
-    if (fractal->data.is_dragging)
-    {
-        fractal->data.vertex.re -= (x - fractal->data.last_x) * fractal->data.complex_width / (WIDTH - 1);
-        fractal->data.vertex.im += (y - fractal->data.last_y) * fractal->data.complex_height / (HEIGHT - 1);
-        iterate_img(fractal);
-        mlx_put_image_to_window(fractal->mlx_interface.mlx_connection,
-        						fractal->mlx_interface.mlx_window,
-                                fractal->mlx_interface.img.context, 0, 0);
-        fractal->data.last_x = x;
-        fractal->data.last_y = y;
-    }
-    return (0);
 }
 
 // t_complex	get_complex(int x, int y, t_fractal *fractal)
