@@ -6,7 +6,7 @@
 /*   By: fmontero <fmontero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 14:55:26 by fmontero          #+#    #+#             */
-/*   Updated: 2024/11/10 22:58:05 by fmontero         ###   ########.fr       */
+/*   Updated: 2024/11/14 09:06:41 by fmontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,13 @@
 
 # include <stdlib.h>
 # include <stdbool.h>
+# include <stdio.h>
+# include <errno.h>
+# include <math.h>
 # include <mlx.h>
 # include <X11/keysym.h>
 # include <X11/X.h>
 # include <unistd.h>
-# include <math.h>
-# include <errno.h>
 # include "../mlx_linux/mlx.h"
 # include "../lib/libft/include/libft.h"
 # include "../lib/libft/include/extra.h"
@@ -85,6 +86,9 @@ typedef struct s_fractal_data
 	double			complex_height;
 	t_complex		julia_cte;
 	double			zoom;
+	int				last_x;
+	int				last_y;
+	bool			is_dragging;
 }	t_fractal_data;
 
 typedef struct s_mlx_interface

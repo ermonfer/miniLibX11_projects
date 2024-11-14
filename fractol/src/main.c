@@ -6,7 +6,7 @@
 /*   By: fmontero <fmontero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 14:22:43 by fmontero          #+#    #+#             */
-/*   Updated: 2024/11/10 17:59:23 by fmontero         ###   ########.fr       */
+/*   Updated: 2024/11/14 07:30:01 by fmontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ static void	fractal_data_init(t_fractal_data *data)
 	data->complex_height = 3.0;
 	data->zoom = ZOOM_FACTOR;
 	data->escape_limit = ESCAPE_VALUE;
+	data->is_dragging = false;
 }
 
 static void	malloc_error(void)
