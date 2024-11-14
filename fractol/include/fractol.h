@@ -45,6 +45,7 @@
 # define PNKY_PASTEL		0xFFFFC4D6
 # define CUTE_GREEN			0xFFC1E378
 # define BRAT_GREEN			0xFF8ACE00
+# define NOMAI_PURPLE		0xFF787EFE
 
 typedef unsigned int	t_uint;
 
