@@ -117,17 +117,16 @@ typedef struct s_render_iterators
 
 typedef struct s_traslation_table
 {	
-	int			reset_x;
 	int			pixel_x;
 	int			pixel_y;
 	int			step_x;
 	int			step_y;
 	int			limit_x;
 	int			limit_y;
+	char		*byte_iter;
 	t_complex	complex_iter;
 	t_complex	complex_step;
 	int			offset;
-	char		*byte_iter;
 }	t_traslation_table;
 
 void		hook_setter(t_fractal *fractal);

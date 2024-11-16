@@ -20,7 +20,6 @@ int		mouse_push_handler(int button, int x, int y, t_fractal *fractal);
 int		click_handler(int x, int y, t_fractal *fractal);
 int		mouse_release_handler(int button, int x, int y, t_fractal *fractal);
 
-
 void	hook_setter(t_fractal *fractal)
 {
 	mlx_hook(fractal->mlx_interface.mlx_window, KeyPress, KeyPressMask,
@@ -61,13 +60,13 @@ int	key_handler(int keysym, t_fractal *fractal)
 int	key_move_handler(t_fractal *fractal, t_movement movement)
 {
 	if (movement == move_right)
-		fractal->data.vertex.re -= fractal->data.complex_width / 50;
-	else if (movement == move_left)
 		fractal->data.vertex.re += fractal->data.complex_width / 50;
+	else if (movement == move_left)
+		fractal->data.vertex.re -= fractal->data.complex_width / 50;
 	else if (movement == move_up)
-		fractal->data.vertex.im -= fractal->data.complex_height / 50;
-	else if (movement == move_down)
 		fractal->data.vertex.im += fractal->data.complex_height / 50;
+	else if (movement == move_down)
+		fractal->data.vertex.im -= fractal->data.complex_height / 50;
 	iterate_img(fractal);
 	mlx_put_image_to_window(fractal->mlx_interface.mlx_connection,
 		fractal->mlx_interface.mlx_window,
