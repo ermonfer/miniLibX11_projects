@@ -6,7 +6,7 @@
 /*   By: fmontero <fmontero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 14:55:26 by fmontero          #+#    #+#             */
-/*   Updated: 2024/11/14 09:06:41 by fmontero         ###   ########.fr       */
+/*   Updated: 2024/11/16 01:33:15 by fmontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,21 @@ typedef struct s_render_iterators
 	int			pixel_x;
 	int			pixel_y;
 }	t_render_iterators;
+
+typedef struct s_traslation_table
+{	
+	int			reset_x;
+	int			pixel_x;
+	int			pixel_y;
+	int			step_x;
+	int			step_y;
+	int			limit_x;
+	int			limit_y;
+	t_complex	complex_iter;
+	t_complex	complex_step;
+	int			offset;
+	char		*byte_iter;
+}	t_traslation_table;
 
 void		hook_setter(t_fractal *fractal);
 void		iterate_img(t_fractal *fractal);
