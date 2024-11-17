@@ -6,7 +6,7 @@
 /*   By: fmontero <fmontero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 14:22:43 by fmontero          #+#    #+#             */
-/*   Updated: 2024/11/14 07:30:01 by fmontero         ###   ########.fr       */
+/*   Updated: 2024/11/17 17:04:37 by fmontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,9 @@ void	mlx_interface_init(t_mlx_interface *interface)
 
 static void	fractal_data_init(t_fractal_data *data)
 {
-	data->vertex = (t_complex){-2.15, 1.5};
-	data->complex_width = 3.0;
-	data->complex_height = 3.0;
+	data->vertex = (t_complex){INITIAL_VERTEX_RE, INITIAL_VERTEX_IM};
+	data->complex_width = INITIAL_COMPLEX_WIDTH;
+	data->complex_height = INITIAL_COMPLEX_HEIGHT;
 	data->zoom = ZOOM_FACTOR;
 	data->escape_limit = ESCAPE_VALUE;
 	data->button4_ctr = 1;

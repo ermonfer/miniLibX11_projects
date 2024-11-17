@@ -6,7 +6,7 @@
 /*   By: fmontero <fmontero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 17:13:52 by fmontero          #+#    #+#             */
-/*   Updated: 2024/11/15 17:47:25 by fmontero         ###   ########.fr       */
+/*   Updated: 2024/11/17 17:52:16 by fmontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@ int		key_move_handler(t_fractal *fractal, t_movement movement);
 int		mouse_push_handler(int button, int x, int y, t_fractal *fractal);
 int		click_handler(int x, int y, t_fractal *fractal);
 int		mouse_release_handler(int button, int x, int y, t_fractal *fractal);
+int		reset_handler(t_fractal *fractal);
+void	redraw(t_fractal *fractal);
+void	increase_escape_limit(t_fractal *fractal);
+void	recrease_escape_limit(t_fractal *fractal);
 
 void	hook_setter(t_fractal *fractal)
 {
@@ -32,6 +36,14 @@ void	hook_setter(t_fractal *fractal)
 		StructureNotifyMask, close_handler, fractal);
 }
 
+void	redraw(t_fractal *fractal)
+{
+	iterate_img(fractal);
+	mlx_put_image_to_window(fractal->mlx_interface.mlx_connection,
+		fractal->mlx_interface.mlx_window,
+		fractal->mlx_interface.img.context, 0, 0);
+}
+
 int	close_handler(t_mlx_interface *interface)
 {
 	mlx_destroy_image(interface->mlx_connection,
@@ -42,18 +54,29 @@ int	close_handler(t_mlx_interface *interface)
 	return (0);
 }
 
+int reset_handler(t_fractal *fractal)
+{
+	fractal->data.vertex = (t_complex){INITIAL_VERTEX_RE, INITIAL_VERTEX_IM};
+	fractal->data.complex_width = INITIAL_COMPLEX_WIDTH;
+	fractal->data.complex_height = INITIAL_COMPLEX_HEIGHT;
+	redraw(fractal);
+	return (0);
+}
+
 int	key_handler(int keysym, t_fractal *fractal)
 {
 	if (keysym == XK_Escape)
 		close_handler(&fractal->mlx_interface);
-	if (keysym == XK_Right || keysym == XK_l)
+	if (keysym == XK_Right || keysym == XK_l || keysym == XK_d)
 		key_move_handler(fractal, move_right);
-	if (keysym == XK_Left || keysym == XK_h)
+	if (keysym == XK_Left || keysym == XK_h || keysym == XK_a)
 		key_move_handler(fractal, move_left);
-	if (keysym == XK_Up || keysym == XK_k)
+	if (keysym == XK_Up || keysym == XK_k || keysym == XK_w)
 		key_move_handler(fractal, move_up);
-	if (keysym == XK_Down || keysym == XK_j)
+	if (keysym == XK_Down || keysym == XK_j || keysym == XK_s)
 		key_move_handler(fractal, move_down);
+	if (keysym == XK_r)
+		reset_handler(fractal);
 	return (0);
 }
 
@@ -67,10 +90,7 @@ int	key_move_handler(t_fractal *fractal, t_movement movement)
 		fractal->data.vertex.im += fractal->data.complex_height / 50;
 	else if (movement == move_down)
 		fractal->data.vertex.im -= fractal->data.complex_height / 50;
-	iterate_img(fractal);
-	mlx_put_image_to_window(fractal->mlx_interface.mlx_connection,
-		fractal->mlx_interface.mlx_window,
-		fractal->mlx_interface.img.context, 0, 0);
+	redraw(fractal);
 	return (0);
 }
 
@@ -113,10 +133,7 @@ int	mouse_push_handler(int button, int x, int y, t_fractal *fractal)
 		fractal->data.complex_width /= fractal->data.zoom;
 		fractal->data.complex_height /= fractal->data.zoom;
 	}
-	iterate_img(fractal);
-	mlx_put_image_to_window(fractal->mlx_interface.mlx_connection,
-		fractal->mlx_interface.mlx_window,
-		fractal->mlx_interface.img.context, 0, 0);
+	redraw(fractal);
 	return (0);
 }
 
@@ -133,10 +150,7 @@ int mouse_release_handler(int button, int x, int y, t_fractal *fractal)
 	{
 		fractal->data.vertex.re -= (x - fractal->data.last_x) * fractal->data.complex_width / (WIDTH - 1);
 		fractal->data.vertex.im += (y - fractal->data.last_y) * fractal->data.complex_height / (HEIGHT - 1);
-		iterate_img(fractal);
-		mlx_put_image_to_window(fractal->mlx_interface.mlx_connection,
-								fractal->mlx_interface.mlx_window,
-								fractal->mlx_interface.img.context, 0, 0);
+		redraw(fractal);
 	}
 	return (0);
 }
