@@ -16,8 +16,8 @@ static double	decimal_part(char str[], int *format_error);
 
 double	ft_atod_signal(char str[], int *format_error)
 {
-	int sign;
-	int	result;
+	int 	sign;
+	double	result;
 
 	*format_error = 0;
 	while (ft_isspace(*str))
@@ -31,6 +31,8 @@ double	ft_atod_signal(char str[], int *format_error)
 	result = 0;
 	while (ft_isdigit(*str))
 		result = result * 10 + (*str++ - '0');
+	if (*str == '\0')
+		return (result);
 	if (*str == '.')
 		str++;
 	else

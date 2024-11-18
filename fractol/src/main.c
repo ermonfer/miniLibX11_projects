@@ -37,25 +37,28 @@ int	main(int argc, char *argv[])
 
 static void	check_args(int argc, char *argv[], t_fractal *fractal)
 {
-	int	format_error1;
-	int	format_error2;
+	int	format_error[2];
 
 	if (argc == 2 && ft_strncmp(argv[1], "mandelbrot", 11) == 0)
 	{
 		fractal->data.type = mandel;
 		return ;
 	}
-	if (argc == 4 && ft_strncmp(argv[1], "julia", 6) == 0)
+	else if (argc == 2 && ft_strncmp(argv[1], "tricorn", 8) == 0)
+	{
+		fractal->data.type = tricorn;
+		return ;
+	}
+	else if (argc == 4 && ft_strncmp(argv[1], "julia", 6) == 0)
 	{
 		fractal->data.type = julia;
 		fractal->data.julia_cte
-			= (t_complex){ft_atod_signal(argv[2], &format_error1),
-			ft_atod_signal(argv[3], &format_error2)};
-		if (format_error1 || format_error2)
-			ft_putstr_fd("Error en los parámetros de julia\n", 1);
-		else
+			= (t_complex){ft_atod_signal(argv[2], &format_error[0]),
+			ft_atod_signal(argv[3], &format_error[1])};
+		if (!format_error[0] && !format_error[1])
 			return ;
 	}
+	ft_putstr_fd(ERROR_MESSAGE, 2);
 	exit(EXIT_FAILURE);
 }
 
@@ -99,13 +102,14 @@ static void	fractal_data_init(t_fractal_data *data)
 	data->complex_width = INITIAL_COMPLEX_WIDTH;
 	data->complex_height = INITIAL_COMPLEX_HEIGHT;
 	data->zoom = ZOOM_FACTOR;
-	data->escape_limit = ESCAPE_VALUE;
-	data->button4_ctr = 1;
-	data->button5_ctr = 1;
+	data->escape_limit = INITIAL_ESCAPE_LIMIT;
+	data->button4_ctr = 2;
+	data->button5_ctr = 2;
+	data->color_map = get_color;
 }
 
 static void	malloc_error(void)
 {
-	perror("Fallo de malloc\n");
+	ft_putstr_fd("Fallo de malloc\n", 2);
 	exit(EXIT_FAILURE);
 }
