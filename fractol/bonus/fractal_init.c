@@ -12,13 +12,13 @@
 
 #include "../include/fractol.h"
 
-static void		fractal_init(t_fractal *fractal);
-static void		fractal_data_init(t_fractal_data *data);
-static void		malloc_error(void);
-static void		check_args(int argc, char *argv[], t_fractal *fractal);
-static void		mlx_interface_init(t_mlx_interface *interface);
+void		fractal_init(t_fractal *fractal);
+void		fractal_data_init(t_fractal_data *data);
+void		malloc_error(void);
+void		check_args(int argc, char *argv[], t_fractal *fractal);
+void		mlx_interface_init(t_mlx_interface *interface);
 
-static void	check_args(int argc, char *argv[], t_fractal *fractal)
+void	check_args(int argc, char *argv[], t_fractal *fractal)
 {
 	int	format_error[2];
 
@@ -79,7 +79,7 @@ void	mlx_interface_init(t_mlx_interface *interface)
 			&interface->img.endian);
 }
 
-static void	fractal_data_init(t_fractal_data *data)
+void	fractal_data_init(t_fractal_data *data)
 {
 	data->vertex = (t_complex){INITIAL_VERTEX_RE, INITIAL_VERTEX_IM};
 	data->complex_width = INITIAL_COMPLEX_WIDTH;
@@ -91,7 +91,7 @@ static void	fractal_data_init(t_fractal_data *data)
 	data->color_map = get_color;
 }
 
-static void	malloc_error(void)
+void	malloc_error(void)
 {
 	ft_putstr_fd("Fallo de malloc\n", 2);
 	exit(EXIT_FAILURE);

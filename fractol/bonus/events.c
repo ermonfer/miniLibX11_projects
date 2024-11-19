@@ -61,7 +61,7 @@ int	key_handler(int keysym, t_fractal *fractal)
 	if (keysym == XK_Down || keysym == XK_j || keysym == XK_s)
 		key_move_handler(fractal, move_down);
 	if (keysym == XK_r)
-		reset_handler(fractal);
+		reset_escape_limit_handler(fractal);
 	if (keysym == XK_x)
 		increase_escape_limit_handler(fractal);
 	if (keysym == XK_z)

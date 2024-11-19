@@ -150,7 +150,10 @@ typedef struct s_temperature_map_data
 	double			b;
 }	t_temperature_map_data;
 
-double			lerp(double target, double old[2], double new[2]);
+int				main(int argc, char *argv[]);
+void			check_args(int argc, char *argv[], t_fractal *fractal);
+void			fractal_init(t_fractal *fractal);
+void			redraw(t_fractal *fractal);
 
 void			hook_setter(t_fractal *fractal);
 void			iterate_img(t_fractal *fractal);

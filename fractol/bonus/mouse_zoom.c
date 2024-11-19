@@ -27,10 +27,10 @@ int	mouse_push_handler(int button, int x, int y, t_fractal *fractal)
 		drag_handler(x, y, fractal);
 		return (0);
 	}
-	cursor.re = lerp(x, (double []){0, WIDTH},
+	cursor.re = ft_lerp(x, (double []){0, WIDTH},
 			(double []){fractal->data.vertex.re, fractal->data.vertex.re
 			+ fractal->data.complex_width});
-	cursor.im = lerp(y, (double []){0, HEIGHT},
+	cursor.im = ft_lerp(y, (double []){0, HEIGHT},
 			(double []){fractal->data.vertex.im, fractal->data.vertex.im
 			- fractal->data.complex_height});
 	if (button == Button4)
@@ -64,7 +64,7 @@ int	drag_handler(int x, int y, t_fractal *fractal)
 void	zoom_in_handler(t_complex cursor, t_fractal *fractal)
 {
 	if (fractal->data.button4_ctr++ < 3)
-		return (0);
+		return ;
 	fractal->data.button4_ctr = 0;
 	fractal->data.vertex.re = (fractal->data.vertex.re - cursor.re)
 		* fractal->data.zoom + cursor.re;
@@ -77,7 +77,7 @@ void	zoom_in_handler(t_complex cursor, t_fractal *fractal)
 void	zoom_out_handler(t_complex cursor, t_fractal *fractal)
 {
 	if (fractal->data.button5_ctr++ < 3)
-		return (0);
+		return ;
 	fractal->data.button5_ctr = 0;
 	fractal->data.vertex.re = (fractal->data.vertex.re - cursor.re)
 		/ fractal->data.zoom + cursor.re;

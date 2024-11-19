@@ -25,5 +25,6 @@ int		ft_atoi_signal(const char *str, int *out_of_range);
 void	ft_free_split(char **split);
 void	*ft_free_return(void **ptrs, int n_ptrs, void *ret);
 double	ft_atod_signal(char str[], int *format_error);
+double	ft_lerp(double target, double old[2], double new[2]);
 
 #endif

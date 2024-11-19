@@ -78,7 +78,7 @@ unsigned int	mandeljulia(t_complex complex, t_fractal *fractal)
 
 unsigned int	get_color(t_complex z, t_fractal *fractal)
 {
-	return ((unsigned int)lerp((double)mandeljulia(z, fractal),
+	return ((unsigned int)ft_lerp((double)mandeljulia(z, fractal),
 			(double []){0, fractal->data.escape_limit},
 		(double []){WHITE, BLACK}));
 }
@@ -87,7 +87,7 @@ unsigned int	gray_scale(t_complex z, t_fractal *fractal)
 {
 	unsigned int	intensity;
 
-	intensity = (unsigned char)lerp((double)mandeljulia(z, fractal),
+	intensity = (unsigned char)ft_lerp((double)mandeljulia(z, fractal),
 			(double []){0, fractal->data.escape_limit}, (double []){0, 255});
 	return ((0xFF << 24) | (intensity << 16) | (intensity << 8) | intensity);
 }
@@ -99,17 +99,17 @@ unsigned int	temperature_map(t_complex z, t_fractal *fractal)
 	{1.0, 1.0, 0.0}, {1.0, 0.5, 0.0}, {1.0, 0.0, 0.0}, {0.0, 0.0, 0.0}};
 
 	dt.intensity = (double)mandeljulia(z, fractal);
-	dt.t = lerp(dt.intensity,
+	dt.t = ft_lerp(dt.intensity,
 			(double []){0, fractal->data.escape_limit}, (double []){0, 1});
 	dt.segment = (int)(dt.t * (6 - 1));
 	dt.local_t = (dt.t * (6 - 1)) - dt.segment;
 	dt.beg = path[dt.segment];
 	dt.end = path[dt.segment + 1];
-	dt.r = lerp(dt.local_t,
+	dt.r = ft_lerp(dt.local_t,
 			(double []){0, 1}, (double []){dt.beg[0], dt.end[0]});
-	dt.g = lerp(dt.local_t,
+	dt.g = ft_lerp(dt.local_t,
 			(double []){0, 1}, (double []){dt.beg[1], dt.end[1]});
-	dt.b = lerp(dt.local_t,
+	dt.b = ft_lerp(dt.local_t,
 			(double []){0, 1}, (double []){dt.beg[2], dt.end[2]});
 	dt.color = ((unsigned char)(dt.r * 255) << 16)
 		| ((unsigned char)(dt.g * 255) << 8)

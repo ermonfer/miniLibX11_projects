@@ -3,12 +3,11 @@ MLX_NAME := ../mlx_linux/mlx
 
 #Compilador y Flags
 CC	:= gcc
-CFLAGS	:= -Wall -Werror -Wextra -Ofast -march=native -funroll-loops#-fPIE 
-LDFLAGS :=#-pie
+CFLAGS	:= -Wall -Werror -Wextra -Ofast -march=native -funroll-loops
 HEADERS	:= -I/usr/local/include -I../mlx_linux
 
 #Archivos fuente y directorios
-SRCDIR	:= src
+SRCDIR	:= bonus
 SRC	:= $(wildcard $(SRCDIR)/*.c) #Esto recuerdo que luego habrá que incluirlos explicitamente por norma
 OBJ	:= ${SRC:.c=.o}
 
