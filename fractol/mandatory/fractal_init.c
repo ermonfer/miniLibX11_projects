@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fractol_bonus.h"
+#include "../include/fractol.h"
 
 void		fractal_init(t_fractal *fractal);
 void		fractal_data_init(t_fractal_data *data);
@@ -25,11 +25,6 @@ void	check_args(int argc, char *argv[], t_fractal *fractal)
 	if (argc == 2 && ft_strncmp(argv[1], "mandelbrot", 11) == 0)
 	{
 		fractal->data.type = mandel;
-		return ;
-	}
-	else if (argc == 2 && ft_strncmp(argv[1], "tricorn", 8) == 0)
-	{
-		fractal->data.type = tricorn;
 		return ;
 	}
 	else if (argc == 4 && ft_strncmp(argv[1], "julia", 6) == 0)

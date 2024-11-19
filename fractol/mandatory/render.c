@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fractol_bonus.h"
+#include "../include/fractol.h"
 
 void				iterate_img(t_fractal *fractal);
 static unsigned int	mandeljulia(t_complex complex, t_fractal *fractal);

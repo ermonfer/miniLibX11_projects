@@ -7,9 +7,12 @@ CFLAGS	:= -Wall -Werror -Wextra -Ofast -march=native -funroll-loops
 HEADERS	:= -I/usr/local/include -I../mlx_linux
 
 #Archivos fuente y directorios
-SRCDIR	:= bonus
-SRC	:= $(wildcard $(SRCDIR)/*.c) #Esto recuerdo que luego habrá que incluirlos explicitamente por norma
-OBJ	:= ${SRC:.c=.o}
+DIR_MANDATORY	:= mandatory
+SRC_MAN	:= $(wildcard $(DIR_MANDATORY)/*.c) #Esto recuerdo que luego habrá que incluirlos explicitamente por norma
+OBJ_MAN:= ${SRC_MAN:.c=.o}
+DIR_BONUS	:= bonus
+SRC_BONUS	:= $(wildcard $(DIR_BONUS)/*.c) #Esto recuerdo que luego habrá que incluirlos explicitamente por norma
+OBJ_BONUS:= ${SRC_BONUS:.c=.o}
 
 #Librerias 
 MLX := -L/usr/local/lib -L../mlx_linux -L./lib/libft
@@ -23,13 +26,19 @@ OUT := $(OUTDIR)/$(NAME)
 
 all: $(OUT)
 
-$(OUT): mlx_linux libft $(OBJ)
-	$(CC) $(CFLAGS) $(HEADERS) -o $@ $(OBJ) $(LIBS) $(LDFLAGS)
+$(OUT): ../mlx_linux/libmlx_Linux.a lib/libft/libft.a $(OBJ_MAN)
+	$(CC) $(CFLAGS) $(HEADERS) -o $@ $(OBJ_MAN) $(LIBS) $(LDFLAGS)
 
-mlx_linux:
+bonus: $(OUTDIR)/.cache_bonus
+	@touch $(OUTDIR)/.cache_bonus
+
+$(OUTDIR)/.cache_bonus: ../mlx_linux/libmlx_Linux.a lib/libft/libft.a $(OBJ_BONUS) 
+	$(CC) $(CFLAGS) $(HEADERS) -o $(OUT) $(OBJ_BONUS) $(LIBS) $(LDFLAGS)
+	
+../mlx_linux/libmlx_Linux.a:
 	make -C ../mlx_linux
 
-libft:
+lib/libft/libft.a:
 	make -C ./lib/libft
 
 %.o: %.c
@@ -38,13 +47,14 @@ libft:
 # Limpiar los archivos y el ejecutable
 clean:
 	make -C ./lib/libft clean
-	rm -f $(OBJ)
+	rm -f $(OBJ_MAN) $(OBJ_BONUS)
 
 fclean: clean
 	make -C ./lib/libft fclean
 	make -C ../mlx_linux clean
 	rm -f $(OUT)
+	rm -f $(OUTDIR)/.cache_bonus
 
 re: fclean $(OUT)
 
-.PHONY: all clean fclean re
+.PHONY: all bonus clean fclean re

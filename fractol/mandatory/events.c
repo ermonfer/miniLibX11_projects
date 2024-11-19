@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fractol_bonus.h"
+#include "../include/fractol.h"
 
 void	hook_setter(t_fractal *fractal);
 void	redraw(t_fractal *fractal);
@@ -24,8 +24,6 @@ void	hook_setter(t_fractal *fractal)
 		key_handler, fractal);
 	mlx_hook(fractal->mlx_interface.mlx_window, ButtonPress, ButtonPressMask,
 		mouse_push_handler, fractal);
-	mlx_hook(fractal->mlx_interface.mlx_window, ButtonRelease,
-		ButtonReleaseMask, mouse_release_handler, fractal);
 	mlx_hook(fractal->mlx_interface.mlx_window, DestroyNotify,
 		StructureNotifyMask, close_handler, fractal);
 }
@@ -52,24 +50,16 @@ int	key_handler(int keysym, t_fractal *fractal)
 {
 	if (keysym == XK_Escape)
 		close_handler(&fractal->mlx_interface);
-	if (keysym == XK_Right || keysym == XK_l || keysym == XK_d)
+	if (keysym == XK_Right)
 		key_move_handler(fractal, move_right);
-	if (keysym == XK_Left || keysym == XK_h || keysym == XK_a)
+	if (keysym == XK_Left)
 		key_move_handler(fractal, move_left);
-	if (keysym == XK_Up || keysym == XK_k || keysym == XK_w)
+	if (keysym == XK_Up)
 		key_move_handler(fractal, move_up);
-	if (keysym == XK_Down || keysym == XK_j || keysym == XK_s)
+	if (keysym == XK_Down)
 		key_move_handler(fractal, move_down);
-	if (keysym == XK_r)
-		reset_vertex_handler(fractal);
-	if (keysym == XK_x)
-		increase_escape_limit_handler(fractal);
-	if (keysym == XK_z)
-		decrease_escape_limit_handler(fractal);
 	if (keysym == XK_c)
 		change_color_handler(fractal);
-	if (keysym == XK_p)
-		reset_escape_limit_handler(fractal);
 	return (0);
 }
 

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fractol_bonus.h"
+#include "../include/fractol.h"
 
 int		mouse_push_handler(int button, int x, int y, t_fractal *fractal);
 int		mouse_release_handler(int button, int x, int y, t_fractal *fractal);
@@ -22,35 +22,13 @@ int	mouse_push_handler(int button, int x, int y, t_fractal *fractal)
 {
 	t_complex	cursor;
 
-	if (button == Button1)
-	{
-		drag_handler(x, y, fractal);
-		return (0);
-	}
-	cursor.re = ft_lerp(x, (double []){0, WIDTH},
-			(double []){fractal->data.vertex.re, fractal->data.vertex.re
-			+ fractal->data.complex_width});
-	cursor.im = ft_lerp(y, (double []){0, HEIGHT},
-			(double []){fractal->data.vertex.im, fractal->data.vertex.im
-			- fractal->data.complex_height});
+	cursor.re = fractal->data.vertex.re + fractal->data.complex_width / 2;
+	cursor.im = fractal->data.vertex.im + fractal->data.complex_height / 2;
 	if (button == Button4)
 		zoom_in_handler(cursor, fractal);
 	else if (button == Button5)
 		zoom_out_handler(cursor, fractal);
 	redraw(fractal);
-	return (0);
-}
-
-int	mouse_release_handler(int button, int x, int y, t_fractal *fractal)
-{
-	if (button == Button1)
-	{
-		fractal->data.vertex.re -= (x - fractal->data.last_x)
-			* fractal->data.complex_width / (WIDTH - 1);
-		fractal->data.vertex.im += (y - fractal->data.last_y)
-			* fractal->data.complex_height / (HEIGHT - 1);
-		redraw(fractal);
-	}
 	return (0);
 }
 

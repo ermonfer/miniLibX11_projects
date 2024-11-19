@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol.h                                          :+:      :+:    :+:   */
+/*   fractol_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmontero <fmontero@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: fmontero <fmontero@student.42madrid.com>   #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/31 14:55:26 by fmontero          #+#    #+#             */
-/*   Updated: 2024/11/17 17:45:14 by fmontero         ###   ########.fr       */
+/*   Created: 2024-11-19 17:58:33 by fmontero          #+#    #+#             */
+/*   Updated: 2024-11-19 17:58:33 by fmontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FRACTOL_H
+#ifndef FRACTOL_BONUS_H
 
-# define FRACTOL_H
+# define FRACTOL_BONUS_H
 
 # include <stdlib.h>
 # include <stdbool.h>
@@ -160,10 +160,18 @@ void			iterate_img(t_fractal *fractal);
 unsigned int	get_color(t_complex z, t_fractal *fractal);
 unsigned int	gray_scale(t_complex z, t_fractal *fractal);
 unsigned int	temperature_map(t_complex z, t_fractal *fractal);
+
+void			increase_escape_limit_handler(t_fractal *data);
+void			decrease_escape_limit_handler(t_fractal *data);
+int				reset_vertex_handler(t_fractal *fractal);
+void			reset_escape_limit_handler(t_fractal *fractal);
 void			change_color_handler(t_fractal *fractal);
 
 int				mouse_push_handler(int button, int x, int y,
 					t_fractal *fractal);
+int				mouse_release_handler(int button, int x, int y,
+					t_fractal *fractal);
+int				drag_handler(int x, int y, t_fractal *fractal);
 void			zoom_in_handler(t_complex cursor, t_fractal *fractal);
 void			zoom_out_handler(t_complex cursor, t_fractal *fractal);
 #endif

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fractol_bonus.h"
+#include "../include/fractol.h"
 
 int	main(int argc, char *argv[])
 {
