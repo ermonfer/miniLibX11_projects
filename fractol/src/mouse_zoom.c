@@ -54,7 +54,7 @@ int	mouse_release_handler(int button, int x, int y, t_fractal *fractal)
 	return (0);
 }
 
-int drag_handler(int x, int y, t_fractal *fractal)
+int	drag_handler(int x, int y, t_fractal *fractal)
 {
 	fractal->data.last_x = x;
 	fractal->data.last_y = y;

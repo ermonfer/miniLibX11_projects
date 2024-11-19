@@ -16,7 +16,7 @@ static double	decimal_part(char str[], int *format_error);
 
 double	ft_atod_signal(char str[], int *format_error)
 {
-	int 	sign;
+	int		sign;
 	double	result;
 
 	*format_error = 0;
@@ -53,7 +53,7 @@ static double	decimal_part(char str[], int *format_error)
 	while (ft_isdigit(*str))
 	{
 		result += (*str - '0') * decimal_place;
-		decimal_place *= 0.1; 
+		decimal_place *= 0.1;
 		str++;
 	}
 	if (!(ft_isspace(*str) || *str == '\0'))

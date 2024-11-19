@@ -51,7 +51,8 @@
 # define BRAT_GREEN			0xFF8ACE00
 # define NOMAI_PURPLE		0xFF787EFE
 
-typedef unsigned int	t_uint;
+typedef unsigned int		t_uint;
+typedef struct s_fractal	t_fractal;
 
 typedef struct s_complex
 {
@@ -82,8 +83,6 @@ typedef enum e_movement
 	move_up,
 	move_down
 }	t_movement;
-
-typedef struct s_fractal	t_fractal;
 
 typedef struct s_fractal_data
 {
@@ -124,7 +123,7 @@ typedef struct s_render_iterators
 }	t_render_iterators;
 
 typedef struct s_traslation_table
-{	
+{
 	int			pixel_x;
 	int			pixel_y;
 	int			step_x;
@@ -141,11 +140,11 @@ typedef struct s_temperature_map_data
 {
 	unsigned int	color;
 	double			intensity;
-	double			t; 
+	double			t;
 	int				segment;
 	int				local_t;
 	double			*beg;
-	double 			*end;
+	double			*end;
 	double			r;
 	double			g;
 	double			b;
@@ -165,8 +164,10 @@ int				reset_vertex_handler(t_fractal *fractal);
 void			reset_escape_limit_handler(t_fractal *fractal);
 void			change_color_handler(t_fractal *fractal);
 
-int				mouse_push_handler(int button, int x, int y, t_fractal *fractal);
-int				mouse_release_handler(int button, int x, int y, t_fractal *fractal);
+int				mouse_push_handler(int button, int x, int y,
+					t_fractal *fractal);
+int				mouse_release_handler(int button, int x, int y,
+					t_fractal *fractal);
 int				drag_handler(int x, int y, t_fractal *fractal);
 void			zoom_in_handler(t_complex cursor, t_fractal *fractal);
 void			zoom_out_handler(t_complex cursor, t_fractal *fractal);

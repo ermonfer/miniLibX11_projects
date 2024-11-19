@@ -18,7 +18,6 @@ int		close_handler(t_mlx_interface *interface);
 int		key_move_handler(t_fractal *fractal, t_movement movement);
 int		key_handler(int keysym, t_fractal *fractal);
 
-
 void	hook_setter(t_fractal *fractal)
 {
 	mlx_hook(fractal->mlx_interface.mlx_window, KeyRelease, KeyReleaseMask,

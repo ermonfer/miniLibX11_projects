@@ -92,7 +92,7 @@ unsigned int	gray_scale(t_complex z, t_fractal *fractal)
 	return ((0xFF << 24) | (intensity << 16) | (intensity << 8) | intensity);
 }
 
-unsigned int temperature_map(t_complex z, t_fractal *fractal)
+unsigned int	temperature_map(t_complex z, t_fractal *fractal)
 {
 	t_temperature_map_data	dt;
 	static double			path[6][3] = {{1.0, 1.0, 1.0}, {0.0, 0.5, 1.0},
